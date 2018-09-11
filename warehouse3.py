@@ -96,21 +96,22 @@ class warehouse:
         else:
             return False
 
-    def checkRow(self, x):
-        if self.ware[x][0] >= 100:
+    def checkWare(self, x):
+        list = []
+        for i in self.ware[x-1]:
+            # print(i)
+            if i != {}:
+                list.append(i)
+        print(len(list)+1)
+        if len(list) >= self.num[0]:
             print("Slot is empty. Cannot retrieve the product. ")
-        elif self.ware[x][2] >= 100:
-            print("Slot is empty. Cannot retrieve the product. ")
-        elif self.ware[x][3] >= 100:
-            print("Slot is empty. Cannot retrieve the product. ")
-        elif self.ware[x][4] >= 175:
-            print("Slot is empty. Cannot retrieve the product. ")
-        elif self.ware[x][5] >= 8000:
-            print("Slot is empty. Cannot retrieve the product. ")
+        else:
+            print("Slot is not empty. ")
 
 w = warehouse()
 w.insert("A111","519099")
 w.insert("A181","519098")
 w.insert("A121","515099")
 w.insert("A171","502099")
-print(w.ware5)
+w.checkWare(5)
+# print(w.ware5)

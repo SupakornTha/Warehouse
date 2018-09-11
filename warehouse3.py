@@ -81,4 +81,3 @@ class warehouse:
 
 w = warehouse()
 w.insert("A111","519099")
-w.retrieve("A111")

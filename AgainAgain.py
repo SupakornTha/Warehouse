@@ -202,7 +202,7 @@ class warehouse:
             else:
                 b = self.checkname(a[1:])
                 c = self.string2code(b)
-                # print(b,c)
+                print(b,c)
                 if self.findposition(c) == False:
                     print ("Slot is occupied. Cannot store the product.")
                     return self.command()

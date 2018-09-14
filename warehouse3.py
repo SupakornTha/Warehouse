@@ -158,7 +158,8 @@ class warehouse:
 
     def command(self):
         print("")
-        a = input("Please Enter the Command:")
+        a = (input("Please Enter the Command:")).upper()
+        # print(len(a))
         if len(a)==5:
             if a[0] == "0":
                 if self.checkname(a[1:]) == False or len(a) != 5:
@@ -274,7 +275,12 @@ class warehouse:
                             print(self.command())
                 else:
                     print ("Invalid command.")
-            elif a[0] == "9":
+            else:
+                print ("Invalid command.")
+                return self.command()
+        elif len(a)==11:
+            # print("c")
+            if a[0] == "9":
                 if len(a)!=11 or self.checkname(a[1:5])==False:
                     print ("Invalid command.")
                     print (" 9XXXXYYYY Manually put a product id XXXX at position YYYY ")
@@ -305,9 +311,6 @@ class warehouse:
                         print ("Move product "+b+" to Warehouse: "+str(int(d[0]))+" row: "+str(int(d[1:3]))+" slot: "+str(int(d[3:])))
                         return self.command()
 
-            else:
-                print ("Invalid command.")
-                return self.command()
         else:
             print("Invalid command.")
             return self.command()

@@ -159,109 +159,157 @@ class warehouse:
     def command(self):
         print("")
         a = input("Please Enter the Command:")
-        if a[0] == "0":
-            if self.checkname(a[1:]) == False or len(a) != 5:
-                print ("Invalid product id. Please check the product id again")
-                return self.command()
-            else:
-                b = self.checkname(a[1:])
-                if self.find(b) == False:
-                    print ("Slot is empty. Cannot retrieve the product.")
-                    return self.command()
-                elif self.belt == 10:
-                    print ("Belt is full. Cannot retrieve the product ")
+        if len(a)==5:
+            if a[0] == "0":
+                if self.checkname(a[1:]) == False or len(a) != 5:
+                    print ("Invalid product id. Please check the product id again")
                     return self.command()
                 else:
-                    c = self.findproduct(b)
-                    self.retrieve(b)
-                    self.belt.append(b)
-                    print(c)
-                    print ("-Moving from Belt to Warehouse 1")
-                    if int(c[0]) == 2:
-                        print ("-Moving from Warehouse 1 to Warehouse 3")
-                    elif int(c[0]) == 1 or int(c[0]) > 2:
-                        print ("-Moving from Warehouse 1 to Warehouse 2")
-                        if int(c[0]) > 2:
-                            print("-Moving from Warehouse 2 to Warehouse " + str(int(c[0]) + 1))
-                    print ("-Getting a product id " + b + " from Warehouse" + str(int(c[0]) + 1) + " : row " + str(int(c[1:3]) + 1) + " slot " + str(int(c[3:])))
-                    if int(c[0]) > 2:
-                        print ("-Moving from Warehouse " + str(int(c[0]) + 1) + " to Warehouse 2")
-                    if int(c[0]) == 1 or int(c[0]) > 2:
-                        print ("-Moving from Warehouse 2 to Warehouse 1")
-                    elif int(c[0]) == 2:
-                        print ("-Moving from Warehouse 3 to Warehouse 1")
-                    print ("-Moving from Warehouse 1 to Belt")
-                    print ("-Place product id "+b+" on the belt")
-                    print ("-Retrieving Successfully! ")
-                    return self.command()
-
-        elif a[0] == "1":
-            if self.checkname(a[1:]) == False or len(a) != 5:
-                print ("Invalid product id. Please check the product id again")
-                return self.command()
-            else:
-                b = self.checkname(a[1:])
-                c = self.string2code(b)
-                # print(b,c)
-                if self.findposition(c) == False:
-                    print ("Slot is occupied. Cannot store the product.")
-                    return self.command()
-                else:
-                    if len(self.ware[int(c[0])][int(c[1:3])])<self.slotnum[int(c[0])]:
-                        self.insert(b, c)
-                        print ("-Moving from Belt to Warehouse 1")
-                        if int(c[0])==2:
-                          print ("-Moving from Warehouse 1 to Warehouse 3")
-                        elif int(c[0])==1 or int(c[0])>2:
-                            print ("-Moving from Warehouse 1 to Warehouse 2")
-                            if int(c[0])>2:
-                                print("-Moving from Warehouse 2 to Warehouse "+str(int(c[0])+1))
-                        print ("-Storing a product id " + b + " from Warehouse"+ str(int(c[0])+1)+" : row " + str(int(c[1:3])+1) + " slot " + str(int(c[3:])))
-                        if int(c[0]) > 2:
-                            print("-Moving from Warehouse "+ str(int(c[0])+1)+" to Warehouse 2")
-                        if int(c[0])==1 or int(c[0])>2:
-                            print("-Moving from Warehouse 2 to Warehouse 1")
-                        elif int(c[0])==2:
-                            print("-Moving from Warehouse 3 to Warehouse 1")
-                        print("-Moving from Warehouse 1 to Belt")
-                        print("-Storing Successfully!")
+                    b = self.checkname(a[1:])
+                    if self.find(b) == False:
+                        print ("Slot is empty. Cannot retrieve the product.")
+                        return self.command()
+                    elif self.belt == 10:
+                        print ("Belt is full. Cannot retrieve the product ")
+                        return self.command()
                     else:
-                        print("Slot is occupied. Cannot store the product.")
+                        c = self.findproduct(b)
+                        self.retrieve(b)
+                        self.belt.append(b)
+                        # print(c)
+                        print ("-Moving from Belt to Warehouse 1")
+                        if int(c[0]) == 2:
+                            print ("-Moving from Warehouse 1 to Warehouse 3")
+                        elif int(c[0]) == 1 or int(c[0]) > 2:
+                            print ("-Moving from Warehouse 1 to Warehouse 2")
+                            if int(c[0]) > 2:
+                                print("-Moving from Warehouse 2 to Warehouse " + str(int(c[0]) + 1))
+                        print ("-Getting a product id " + b + " from Warehouse" + str(int(c[0]) + 1) + " : row " + str(int(c[1:3]) + 1) + " slot " + str(int(c[3:])))
+                        if int(c[0]) > 2:
+                            print ("-Moving from Warehouse " + str(int(c[0]) + 1) + " to Warehouse 2")
+                        if int(c[0]) == 1 or int(c[0]) > 2:
+                            print ("-Moving from Warehouse 2 to Warehouse 1")
+                        elif int(c[0]) == 2:
+                            print ("-Moving from Warehouse 3 to Warehouse 1")
+                        print ("-Moving from Warehouse 1 to Belt")
+                        print ("-Place product id "+b+" on the belt")
+                        print ("-Retrieving Successfully! ")
+                        return self.command()
+
+            elif a[0] == "1":
+                if self.checkname(a[1:]) == False or len(a) != 5:
+                    print ("Invalid product id. Please check the product id again")
                     return self.command()
-        elif a[0] == "2":
-            if len(a) != 5:
-                print("Invalid command.The command must include 2XY00 while X is a warehouse number and Y is a row number")
-                return self.command()
-            else:
-                if int(a[1]) not in range(0, 5) or int(a[2:len(a) - 2]) >= self.rownum[int(a[1]) - 1]:
+                else:
+                    b = self.checkname(a[1:])
+                    c = self.string2code(b)
+                    # print(b,c)
+                    if self.findposition(c) == False:
+                        print ("Slot is occupied. Cannot store the product.")
+                        return self.command()
+                    else:
+                        if len(self.ware[int(c[0])][int(c[1:3])])<self.slotnum[int(c[0])]:
+                            self.insert(b, c)
+                            print ("-Moving from Belt to Warehouse 1")
+                            if int(c[0])==2:
+                                print ("-Moving from Warehouse 1 to Warehouse 3")
+                            elif int(c[0])==1 or int(c[0])>2:
+                                print ("-Moving from Warehouse 1 to Warehouse 2")
+                                if int(c[0])>2:
+                                    print("-Moving from Warehouse 2 to Warehouse "+str(int(c[0])+1))
+                            print ("-Storing a product id " + b + " from Warehouse"+ str(int(c[0])+1)+" : row " + str(int(c[1:3])+1) + " slot " + str(int(c[3:])))
+                            if int(c[0]) > 2:
+                                print("-Moving from Warehouse "+ str(int(c[0])+1)+" to Warehouse 2")
+                            if int(c[0])==1 or int(c[0])>2:
+                                print("-Moving from Warehouse 2 to Warehouse 1")
+                            elif int(c[0])==2:
+                                print("-Moving from Warehouse 3 to Warehouse 1")
+                            print("-Moving from Warehouse 1 to Belt")
+                            print("-Storing Successfully!")
+                        else:
+                            print("Slot is occupied. Cannot store the product.")
+                        return self.command()
+            elif a[0] == "2":
+                if len(a) != 5:
                     print("Invalid command.The command must include 2XY00 while X is a warehouse number and Y is a row number")
                     return self.command()
                 else:
-                    b = a[1:len(a) - 2]
-                    if self.sort(int(b[0]), int(b[1:])) == False:
-                        print ("Slot is occupied. Cannot sort Warehouse " + b[0] + " Row " + b[1:])
+                    if int(a[1]) not in range(0, 5) or int(a[2:len(a) - 2]) >= self.rownum[int(a[1]) - 1]:
+                        print("Invalid command.The command must include 2XY00 while X is a warehouse number and Y is a row number")
                         return self.command()
                     else:
-                        print ("Sorting process for Warehouse " + b[0] + " is complete.")
-                        return self.command()
-        elif a == "30000":
-            if len(self.belt) == 0:
-                print ("The belt is empty. Cannot retrieve the product from the belt")
-                return self.command()
-            else:
-                b = self.belt.pop(0)
-                c = len(self.belt)
-                print ("Retrieve a product with id " + b + " from the belt. ")
-                if c <= 1:
-                    print ("The belt now has " + str(c) + " product on the line")
+                        b = a[1:len(a) - 2]
+                        if self.sort(int(b[0]), int(b[1:])) == False:
+                            print ("Slot is occupied. Cannot sort Warehouse " + b[0] + " Row " + b[1:])
+                            return self.command()
+                        else:
+                            print ("Sorting process for Warehouse " + b[0] + " is complete.")
+                            return self.command()
+            elif a == "30000":
+                if len(self.belt) == 0:
+                    print ("The belt is empty. Cannot retrieve the product from the belt")
+                    return self.command()
                 else:
-                    print ("The belt now has " + str(c) + " products on the line")
+                    b = self.belt.pop(0)
+                    c = len(self.belt)
+                    print ("Retrieve a product with id " + b + " from the belt. ")
+                    if c <= 1:
+                        print ("The belt now has " + str(c) + " product on the line")
+                    else:
+                        print ("The belt now has " + str(c) + " products on the line")
+                    return self.command()
+            elif a=="40000":
+                self.data()
                 return self.command()
-        elif a=="40000":
-            self.data()
-            return self.command()
+            elif a[0] == "5":
+                if 65<=ord(a[1])<=89:
+                    if self.checkname(a[1:])!=False:
+                        b = self.checkname(a[1:])
+                        if self.find(b)==False:
+                            print ("Product not found.")
+                            return self.command()
+                        else:
+                            c=w.findproduct(b)
+                            print("Found the product at Warehouse: "+str(int(c[0])+1)+" row: "+str(int(c[1:3])+1)+" slot: "+str(int(c[3:])))
+                            print(self.command())
+                else:
+                    print ("Invalid command.")
+            elif a[0] == "9":
+                if len(a)!=11 or self.checkname(a[1:5])==False:
+                    print ("Invalid command.")
+                    print (" 9XXXXYYYY Manually put a product id XXXX at position YYYY ")
+                    print (" Product id has a unique id in a form of 4 characters: XYZ")
+                    print ("  X  has a value of A to Y.")
+                    print ("  Y has a value of 1 to 5.")
+                    print ("  Z has a value of 00 to 99.")
+                    print (" To enter the position please enter 6 digit number ABC")
+                    print ("  A  represents a number of warehouse.It has a value of 1 to 5.")
+                    print ("  B  represents a number of row in warehouse.It has a value of 01 to 20.")
+                    print ("  C  represents a number of slot.It has a value of 001 to 400.")
+                    return self.command()
+                else:
+                    b=self.checkname(a[1:5])
+                    d=self.posi(a[5:])
+                    c=str(int(self.posi(a[5:]))-101000)
+                    # print(c)
+                    if self.find(b)==False:
+                        print ("Product not found.")
+                        return self.command()
+                    else:
+                        if self.findposition(c)==False:
+                            print ("Slot is occupied. Failed to move.")
+                            return self.command()
+                        else:
+                            self.retrieve(b)
+                            self.insert(b,c)
+                        print ("Move product "+b+" to Warehouse: "+str(int(d[0]))+" row: "+str(int(d[1:3]))+" slot: "+str(int(d[3:])))
+                        return self.command()
+
+            else:
+                print ("Invalid command.")
+                return self.command()
         else:
-            print ("Invalid command.")
+            print("Invalid command.")
             return self.command()
 
 w = warehouse()

@@ -158,7 +158,7 @@ class warehouse:
         a = input("Please Enter the Command:")
         # print(len(a))
         if 4<len(a)<7:
-            if a[0] == "0" and len(a)==5:
+            if a[0] == "0" and len(a)==5 and (65<=ord(a[1])<=89 or 97<=ord(a[1])<=121) and 49<=ord(a[2])<=53 and 48<=ord(a[3])<=57 and 48<=ord(a[4])<=57 :
                 if self.checkname(a[1:]) == False or len(a) != 5: #or self.find(a[2:]) == True:
                     print ("Invalid product id. Please check the product id again")
                     return self.command()
@@ -194,7 +194,7 @@ class warehouse:
                         print ("-Retrieving Successfully! ")
                         return self.command()
 
-            elif a[0] == "1" and len(a)==5:
+            elif a[0] == "1" and len(a)==5 and (65<=ord(a[1])<=89 or 97<=ord(a[1])<=121) and 49<=ord(a[2])<=53 and 48<=ord(a[3])<=57 and 48<=ord(a[4])<=57:
                 if self.checkname(a[1:]) == False or len(a) != 5:
                     print ("Invalid product id. Please check the product id again")
                     return self.command()
@@ -227,7 +227,7 @@ class warehouse:
                         else:
                             print("Slot is occupied. Cannot store the product.")
                         return self.command()
-            elif a[0] == "2" and len(a)==5:
+            elif a[0] == "2" and len(a)==5 and a[len(a)-2:]=="00" and 49<=ord(a[1])<=53 :
                 if int(a[1]) not in range(0, 6) or int(a[2:len(a) - 2]) > self.rownum[int(a[1]) - 1]:
                     print("Invalid command.The command must include 2XY00 while X is a warehouse number and Y is a row number")
                     return self.command()
@@ -256,7 +256,7 @@ class warehouse:
             elif a=="40000":
                 self.data()
                 return self.command()
-            elif a[0] == "5" and len(a)==5:
+            elif a[0] == "5" and len(a)==5  and (65<=ord(a[1])<=89 or 97<=ord(a[1])<=121) and 49<=ord(a[2])<=53 and 48<=ord(a[3])<=57 and 48<=ord(a[4])<=57:
                 if 65<=ord(a[1])<=89 or 97<=ord(a[1])<=121:
                     if self.checkname(a[1:])!=False:
                         b = self.checkname(a[1:])
@@ -275,7 +275,7 @@ class warehouse:
                 return self.command()
         elif len(a)==11:
             # print("c")
-            if a[0] == "9":
+            if a[0] == "9"  and (65<=ord(a[1])<=89 or 97<=ord(a[1])<=121) and 49<=ord(a[2])<=53 and 48<=ord(a[3])<=57 and 48<=ord(a[4])<=57:
                 if a[5] == "0":
                     print("Invalid command.")
                     return self.command()
